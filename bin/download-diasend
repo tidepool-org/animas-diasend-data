@@ -1,0 +1,71 @@
+#!/usr/bin/env node
+
+var download = require('../lib/download');
+var fs = require('fs');
+
+function main (opts) {
+  var name = opts.name;
+  console.log('Downloading', opts.username + "'s",
+              'Animas xls to include', opts.days, 'days of data.');
+  console.log('Saving xls in', name);
+  var out = fs.createWriteStream(name);
+  download(opts).pipe(out).on('end', end);
+  function end ( ) {
+    console.log('Downloaded', name);
+  }
+}
+
+if (!module.parent) {
+  var argv = require('optimist');
+  var tabtab = require('tabtab');
+  argv = argv
+       .usage("$0 [opts] <out.xls>")
+       .options('u', { alias: 'username'
+       , describe: 'Diasend username (or environment $DIASEND_USERNAME)'
+       , default: process.env.DIASEND_USERNAME
+               })
+       .options('p', { alias: 'password'
+       , describe: 'Diasend password (or environment $DIASEND_PASSWORD)'
+       , default: process.env.DIASEND_PASSWORD
+               })
+       .options('d', { alias: 'days', describe: 'Number of recent days to fetch'
+               , default: 14
+               })
+       ;
+  var opts = argv.argv;
+  var name = opts._.shift( );
+  opts.name = name;
+
+  if (name === 'completion') {
+    var parsed = tabtab.parseOut(argv.help( ));
+    parsed.longs.push('help');
+    return tabtab.complete('download-diasend', function(err, o) {
+
+      if (!o || (o && !o.last || o.last == '--' || o.last == '-')) {
+        if (!opts.username || opts.username == '') {
+          tabtab.log(['username', 'password' ], o, '--');
+        }
+        if (opts.username && !opts.password) {
+          tabtab.log(['password'], o, '--');
+        }
+      }
+      if (err || !o) return;
+      if (!parsed) { return; }
+      // console.error(o.last);
+      if (/--\w+/g.test(o.last)) return tabtab.log(parsed.longs, o, '--');
+      if (/^-\w?/.test(o.last)) return tabtab.log(parsed.shorts, o, '-');
+
+    });
+    if (tabtab.isComplete( )) {
+      console.error('completer is complete');
+      return;
+    }
+  }
+
+  if (!opts.name || !opts.username || !opts.password) {
+    argv.showHelp( );
+    process.exit(1);
+  }
+  main(opts);
+}
+

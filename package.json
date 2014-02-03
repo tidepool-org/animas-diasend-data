@@ -11,7 +11,8 @@
   "dependencies": {
     "request": "~2.33.0",
     "moment": "~2.5.1",
-    "xlsjs": "~0.6.4"
+    "xlsjs": "~0.6.4",
+    "event-stream": "~3.1.0"
   },
   "config": {
     "login": "https://international.diasend.com/diasend1/login.php",
