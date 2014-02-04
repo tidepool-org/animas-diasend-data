@@ -1,0 +1,118 @@
+#!/usr/bin/env node
+
+var xls = require('../lib/xls');
+var fs = require('fs');
+var es = require('event-stream');
+var path = require('path');
+var util = require('util');
+
+function sunder (opts) {
+  var pre = opts.prefix;
+  function iter (data, next) {
+    var count = 0;
+    var pathname = path.join(pre, data.name) + '.csv';
+    opts.progress('writing to', pathname);
+    var output = opts.stdout ? stdout( ) : fs.createWriteStream(pathname);
+    data.on('data', counter);
+    es.pipeline(data, es.join("\n"), output);
+    data.on('end', end(next, pathname));
+
+    function counter ( ) {
+      count++;
+    }
+
+    function end (next, pathname) {
+      return function ( ) {
+        opts.progress("%d records in saved in %s", count - 1, pathname);
+        next( );
+      }
+    }
+  }
+  return es.map(iter);
+}
+
+function stdout ( ) {
+  function write(data) {
+    console.log(data);
+  }
+  var out = es.through(write);
+  function logger ( ) {
+    out.write(util.format.apply(util, arguments));
+  }
+  return logger;
+}
+
+function progress (opts) {
+  var log = opts.stdout ? console.log : console.error;
+  function write(data) {
+    log.apply(console, arguments);
+  }
+  var prog = es.through(write);
+  function logger ( ) {
+    prog.write(util.format.apply(util, arguments));
+  }
+  return logger;
+}
+
+function main (opts) {
+
+  var name = opts.name;
+  var input = fs.createReadStream(name);
+  opts.prefix = opts.prefix || 'examples/';
+  opts.stdout = opts.stdout || null;
+  opts.progress = opts.progress || progress(opts);
+
+  var worker = input.pipe(xls( ));
+  worker.pipe(sunder(opts));
+
+
+}
+
+if (!module.parent) {
+  var argv = require('optimist');
+  var tabtab = require('tabtab');
+  argv = argv
+       .usage("$0 [opts] <incoming.xls>")
+       .options('s', { alias: 'stdout'
+         , describe: 'Print everything to stdout'
+         , default: false
+         })
+       .options('p', { alias: 'prefix'
+         , describe: 'Prefix to store csv files'
+         , default: ''
+         })
+       ;
+  var opts = argv.argv;
+  var name = opts._.shift( );
+  opts.name = name;
+
+  if (name === 'completion') {
+    var parsed = tabtab.parseOut(argv.help( ));
+    parsed.longs.push('help');
+    return tabtab.complete('sunder-csv', function(err, o) {
+
+      if (err || !o) return;
+      if (!o || (o && !o.last || (o.last && o.last == '--' || o.last == '-'))) {
+        if (!opts.prefix) {
+          return tabtab.log(parsed.longs, o, '--');
+        }
+
+      }
+      if (!parsed) { return; }
+      // console.error(o.last);
+      if (/--\w+/g.test(o.last)) return tabtab.log(parsed.longs, o, '--');
+      if (/^-\w?/.test(o.last)) return tabtab.log(parsed.shorts, o, '-');
+
+    });
+    if (tabtab.isComplete( )) {
+      return;
+    }
+  }
+
+  if (!opts.name) {
+    argv.showHelp( );
+    process.exit(1);
+  }
+  main(opts);
+}
+
