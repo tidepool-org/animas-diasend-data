@@ -22,5 +22,24 @@
   "devDependencies": {
     "should": "~3.1.2",
     "mocha": "~1.17.1"
-  }
+  },
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tidepool-org/animas-diasend-data.git"
+  },
+  "keywords": [
+    "animas",
+    "parse",
+    "diabetes",
+    "tidepool",
+    "diasend"
+  ],
+  "bugs": {
+    "url": "https://github.com/tidepool-org/animas-diasend-data/issues"
+  },
+  "homepage": "https://github.com/tidepool-org/animas-diasend-data"
 }
