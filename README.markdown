@@ -3,12 +3,14 @@ anim-parser
 
 parser for animas pump, cbg
 
-# Usage
+## Install
+[![Build Status](https://travis-ci.org/tidepool-org/animas-diasend-data.png?branch=master)](https://travis-ci.org/tidepool-org/animas-diasend-data)
 ```bash
 npm install animas-diasend-data
 make test
 ```
 
+## Usage
 ### CLI Commands
 
 #### `animas-dump-json`
