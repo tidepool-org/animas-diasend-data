@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+
+var xls = require('../lib/xls');
+var render = require('../lib/render');
+var fs = require('fs');
+var es = require('event-stream');
+
+function main (opts) {
+
+  var name = opts.name;
+  var input = (name === '-') ? process.stdin : fs.createReadStream(name);
+
+  var parsers = render( );
+  var excel = xls( );
+  es.pipeline(input, excel, parsers, es.writeArray(finish));
+  function finish (err, results) {
+    console.log(results);
+  }
+
+}
+
+if (!module.parent) {
+  var argv = require('optimist');
+  argv = argv
+       .usage("$0 <incoming.xls>")
+       ;
+  var opts = argv.argv;
+  var name = opts._.shift( );
+  opts.name = name;
+
+  if (!opts.name) {
+    argv.showHelp( );
+    process.exit(1);
+  }
+  main(opts);
+}
+
