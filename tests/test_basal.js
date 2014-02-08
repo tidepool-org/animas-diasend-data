@@ -28,10 +28,13 @@ describe('basal stream', function ( ) {
       , this.parser(utils).stream
       , es.writeArray(finish));
     function finish (err, results) {
+      (err == null).should.be.ok;
+      results.should.be.ok;
       results.length.should.equal(2);
       results[0].deviceTime.should.equal('2013-11-23T17:00:00');
       results[0].basal.should.equal(0.000);
       results[0].value.should.equal('0.000');
+      results[0].type.should.equal('basal-start');
       results[1].deviceTime.should.equal('2013-11-23T17:05:00');
       results[1].basal.should.equal(0.125);
       results[1].value.should.equal('0.125');

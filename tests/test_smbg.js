@@ -27,6 +27,7 @@ describe('smbg stream', function ( ) {
       results.length.should.equal(2);
       results[0].deviceTime.should.equal('2013-11-05T00:17:00');
       results[0].value.should.equal(122);
+      results[0].type.should.equal('smbg');
       results[1].deviceTime.should.equal('2013-11-05T03:59:00');
       results[1].value.should.equal(308);
       done( );

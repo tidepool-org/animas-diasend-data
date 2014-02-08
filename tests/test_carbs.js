@@ -29,11 +29,15 @@ describe('carbs stream', function ( ) {
       , this.parser(utils).stream
       , es.writeArray(finish));
     function finish (err, results) {
+      (err == null).should.be.ok;
+      results.should.be.ok;
       results.length.should.equal(2);
       results[0].deviceTime.should.equal('2013-11-08T14:33:00');
       results[0].value.should.equal(10);
+      results[0].type.should.equal('carbs');
       results[1].deviceTime.should.equal('2013-11-08T14:49:00');
       results[1].value.should.equal(6);
+      results[1].type.should.equal('carbs');
       done( );
     }
   });
