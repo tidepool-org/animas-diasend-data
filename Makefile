@@ -3,3 +3,5 @@ TESTS=tests/*.js
 
 test:
 	${MOCHA} -R tap ${TESTS}
+
+travis: test
