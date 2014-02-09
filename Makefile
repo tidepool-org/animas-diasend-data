@@ -14,7 +14,7 @@ coveralls:
      ${TESTS} | ./coverall.sh
 
 coverhtml:
-	./node_modules/.bin/mocha ${BLANKET} -R html-cov  ${TESTS} > test/coverage.html
+	./node_modules/.bin/mocha ${BLANKET} -R html-cov  ${TESTS} > tests/coverage.html
 
 precover:
 	./node_modules/.bin/mocha ${BLANKET} ${SHOULD} -R html-cov ${TESTS} | w3m -T text/html
