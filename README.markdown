@@ -1,10 +1,13 @@
-anim-parser
-===========
+# animas-diasend-data
 
 parser for animas pump, cbg
 
 ## Install
 [![Build Status](https://travis-ci.org/tidepool-org/animas-diasend-data.png?branch=master)](https://travis-ci.org/tidepool-org/animas-diasend-data)
+[![Coverage Status](https://coveralls.io/repos/tidepool-org/animas-diasend-data/badge.png)](https://coveralls.io/r/tidepool-org/animas-diasend-data)
+[![Code Climate](https://codeclimate.com/github/tidepool-org/animas-diasend-data.png)](https://codeclimate.com/github/tidepool-org/animas-diasend-data)
+[![browser support](https://ci.testling.com/tidepool-org/animas-diasend-data.png)](https://ci.testling.com/tidepool-org/animas-diasend-data)
+
 ```bash
 npm install animas-diasend-data
 make test

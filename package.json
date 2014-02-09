@@ -12,7 +12,11 @@
     "request": "~2.33.0",
     "moment": "~2.5.1",
     "xlsjs": "~0.6.4",
-    "event-stream": "~3.1.0"
+    "event-stream": "~3.1.0",
+    "mocha-lcov-reporter": "0.0.1",
+    "travis-cov": "~0.2.5",
+    "blanket": "~1.1.6",
+    "coveralls": "~2.7.1"
   },
   "config": {
     "login": "https://international.diasend.com/diasend1/login.php",
@@ -22,6 +26,30 @@
   "devDependencies": {
     "should": "~3.1.2",
     "mocha": "~1.17.1"
+  },
+  "testling": {
+    "harness": "mocha",
+    "browsers": [
+      "ie/9..latest",
+      "chrome/20..latest",
+      "firefox/14..latest",
+      "safari/latest",
+      "opera/11.0..latest",
+      "iphone/6",
+      "ipad/6"
+    ],
+    "files": "test/test_*.js"
+  },
+  "config": {
+    "blanket": {
+      "data-cover-never": [
+        "node"
+      ],
+      "pattern": [
+        "lib/parse",
+        "lib/columns"
+      ]
+    }
   },
   "directories": {
     "example": "examples",
