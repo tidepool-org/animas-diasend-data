@@ -18,11 +18,6 @@
     "blanket": "~1.1.6",
     "coveralls": "~2.7.1"
   },
-  "config": {
-    "login": "https://international.diasend.com/diasend1/login.php",
-    "view": "https://international.diasend.com/diasend1/view.php?period=month",
-    "xls": "https://international.diasend.com/diasend1/excel.php"
-  },
   "devDependencies": {
     "should": "~3.1.2",
     "mocha": "~1.17.1"
@@ -41,6 +36,9 @@
     "files": "test/test_*.js"
   },
   "config": {
+    "login": "https://international.diasend.com/diasend1/login.php",
+    "view": "https://international.diasend.com/diasend1/view.php?period=month",
+    "xls": "https://international.diasend.com/diasend1/excel.php",
     "blanket": {
       "data-cover-never": [
         "node"
