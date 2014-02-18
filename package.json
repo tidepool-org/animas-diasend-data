@@ -20,7 +20,8 @@
   },
   "devDependencies": {
     "should": "~3.1.2",
-    "mocha": "~1.17.1"
+    "mocha": "~1.17.1",
+    "tidepool-data-model": "0.0.4"
   },
   "testling": {
     "harness": "mocha",
