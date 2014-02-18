@@ -57,7 +57,10 @@ function progress (opts) {
 function main (opts) {
 
   var name = opts.name;
-  var input = fs.createReadStream(name);
+  var input = name == '-' ? process.stdin : fs.createReadStream(name);
+  if (name == '-') {
+    process.stdin.resume( );
+  }
   opts.prefix = opts.prefix || 'examples/';
   opts.stdout = opts.stdout || null;
   opts.progress = opts.progress || progress(opts);
