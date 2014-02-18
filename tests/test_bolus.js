@@ -34,7 +34,7 @@ describe('bolus stream', function ( ) {
       results[0].deviceTime.should.equal('2013-11-05T04:00:00');
       results[0].bolus.should.equal(0.400);
       results[0].value.should.equal('0.400');
-      results[0].type.should.equal('bolus');
+      results[0].type.should.equal('bolus-normal');
       results[1].deviceTime.should.equal('2013-11-05T07:44:00');
       results[1].bolus.should.equal(0.900);
       results[1].value.should.equal('0.900');
@@ -42,7 +42,7 @@ describe('bolus stream', function ( ) {
       results[1].immediate.should.equal('');
       results[1].reason.should.equal('Combination');
       results[1].duration.should.equal('60');
-      results[1].type.should.equal('insulin-use');
+      results[1].type.should.equal('bolus-x-animas');
       results[1].notes.should.equal('Combination unknown');
       done( );
     }
