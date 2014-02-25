@@ -1,6 +1,6 @@
 {
   "name": "animas-diasend-data",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Fetch and parse spreadsheets containing Animas pump data from Diasend.",
   "main": "index.js",
   "scripts": {
