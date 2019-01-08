@@ -7,7 +7,7 @@
     "test": "make test"
   },
   "author": "Tidepool contributors",
-  "license": "BSD-2",
+  "license": "BSD-2-Clause",
   "dependencies": {
     "request": "~2.33.0",
     "moment": "~2.5.1",
