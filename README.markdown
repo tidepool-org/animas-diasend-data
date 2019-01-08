@@ -1,7 +1,7 @@
 # animas-diasend-data
 
 parser for animas pump, cbg
-
+### This script no longer works as Diasend has changed their website.
 ## Install
 [![Build Status](https://travis-ci.org/tidepool-org/animas-diasend-data.png?branch=master)](https://travis-ci.org/tidepool-org/animas-diasend-data)
 [![Coverage Status](https://coveralls.io/repos/tidepool-org/animas-diasend-data/badge.png)](https://coveralls.io/r/tidepool-org/animas-diasend-data)
